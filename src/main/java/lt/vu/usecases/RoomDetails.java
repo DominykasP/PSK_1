@@ -53,7 +53,7 @@ public class RoomDetails {
         room.setRoomType(roomTypeForUpdate);
 
         roomsDAO.update(room);
-        return "roomDetails.xhtml?faces-redirect=true&roomId=" + room.getId();
+        return "roomDetails?faces-redirect=true&roomId=" + room.getId();
     }
 
 

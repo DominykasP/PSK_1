@@ -47,6 +47,6 @@ public class ClientDetails {
         client.setEmail(emailForUpdate);
 
         clientsDAO.update(client);
-        return "clientDetails.xhtml?faces-redirect=true&clientId=" + client.getId();
+        return "clientDetails?faces-redirect=true&clientId=" + client.getId();
     }
 }
