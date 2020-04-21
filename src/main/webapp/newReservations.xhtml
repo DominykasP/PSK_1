@@ -48,7 +48,7 @@
         <h3>New reservation:</h3>
         <h:form id="createForm">
             <h4>Free rooms:</h4>
-            <h:selectOneRadio value="#{newReservations.roomIdToReserve}">
+            <h:selectOneRadio value="#{newReservations.roomIdToReserve}" layout="pageDirection">
                 <f:selectItems value="#{newReservations.freeRooms}"
                                var="freeRoom"
                                itemValue="#{freeRoom.id}"
@@ -62,13 +62,13 @@
                                itemLabel="#{client.name} #{client.surname}"/>
             </h:selectOneMenu>
             <h4>Aditional requests:</h4>
-            <h:selectManyCheckbox value="#{newReservations.selectedAditionalRequestsIds}">
+            <h:selectManyCheckbox value="#{newReservations.selectedAditionalRequestsIds}" layout="pageDirection">
                 <f:selectItems value="#{newReservations.allAditionalRequests}"
                                var="aditionalRequest"
                                itemValue="#{aditionalRequest.id}"
                                itemLabel="#{aditionalRequest.request}"/>
             </h:selectManyCheckbox>
-
+            <br/>
             <h:commandButton value="Create reservation" action="#{newReservations.createReservation}">
                 <f:param name="dateFrom" value="#{newReservations.dateFromFormatted}"/>
                 <f:param name="dateTo" value="#{newReservations.dateToFormatted}"/>

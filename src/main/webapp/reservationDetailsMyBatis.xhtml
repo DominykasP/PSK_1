@@ -7,7 +7,9 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
-<h:head></h:head>
+<h:head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</h:head>
 <h:body>
     <nav>
         <h:link outcome="index.xhtml" value="Reservations"/>
@@ -60,6 +62,7 @@
             </h:commandButton>
         </h:form>
     </c:if>
+    <br/>
     <h:link outcome="reservationDetails.xhtml?reservationId=#{reservationDetails.reservation.id}" value="See reservation details in ORM"/>
 </h:body>
 </html>
