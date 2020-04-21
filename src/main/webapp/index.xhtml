@@ -37,7 +37,7 @@
             <tr>
                 <td>#{reservation.dateFrom}</td>
                 <td>#{reservation.dateTo}</td>
-                <td>#{reservation.room.number}</td>
+                <td><h:link value="#{reservation.room.number}" outcome="roomDetails?roomId=#{reservation.room.id}"/></td>
                 <td><h:link value="#{reservation.client.name} #{reservation.client.surname}" outcome="clientDetails?clientId=#{reservation.client.id}"/></td>
                 <td><h:link value="More details" outcome="reservationDetails?reservationId=#{reservation.id}"/></td>
             </tr>
@@ -62,7 +62,7 @@
             <tr>
                 <td>#{reservation.dateFrom}</td>
                 <td>#{reservation.dateTo}</td>
-                <td>#{reservation.room.number}</td>
+                <td><h:link value="#{reservation.room.number}" outcome="roomDetails?roomId=#{reservation.room.id}"/></td>
                 <td><h:link value="#{reservation.client.name} #{reservation.client.surname}" outcome="clientDetails?clientId=#{reservation.client.id}"/></td>
                 <td><h:link value="More details" outcome="reservationDetails?reservationId=#{reservation.id}"/></td>
             </tr>
