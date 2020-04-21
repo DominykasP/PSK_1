@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="lt.vu.mybatis.model.AditionalRequest" alias="AditionalRequest"/>
+        <typeAlias type="lt.vu.mybatis.model.Client" alias="Client"/>
+        <typeAlias type="lt.vu.mybatis.model.Reservation" alias="Reservation"/>
+        <typeAlias type="lt.vu.mybatis.model.Roomtype" alias="Roomtype"/>
+        <typeAlias type="lt.vu.mybatis.model.Room" alias="Room"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED"/>
+            <dataSource type="JNDI">
+                <property name="data_source" value="HotelDataSource"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis.xml/AditionalRequestMapper.xml"/>
+        <mapper resource="mybatis.xml/ClientMapper.xml"/>
+        <mapper resource="mybatis.xml/ReservationMapper.xml"/>
+        <mapper resource="mybatis.xml/RoomtypeMapper.xml"/>
+        <mapper resource="mybatis.xml/RoomMapper.xml"/>
+    </mappers>
+</configuration>

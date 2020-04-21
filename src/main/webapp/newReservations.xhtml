@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+    <nav>
+        <h:link outcome="index.xhtml" value="Reservations"/>
+        <h:link outcome="newReservations.xhtml" value="New reservation"/>
+        <h:link outcome="aditionalRequests.xhtml" value="Aditional requests"/>
+        <h:link outcome="clients.xhtml" value="Clients"/>
+        <h:link outcome="rooms.xhtml" value="Rooms"/>
+        <h:link outcome="roomTypes.xhtml" value="Room types"/>
+    </nav>
+    <h2>Search for free rooms
+        <h:outputText value="#{newReservations.dateFromForSearch}">
+            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+3"/>
+        </h:outputText>
+        -
+        <h:outputText value="#{newReservations.dateToForSearch}">
+            <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+3"/>
+        </h:outputText>
+    </h2>
+    <h:form id="searchForm">
+        <label>Date from: <h:inputText value="#{newReservations.dateFromForSearch}" a:placeholder="yyyy/MM/dd"
+                                       required="true">
+            <f:convertDateTime type="date" pattern="yyyy/MM/dd" timeZone="GMT+3"/>
+        </h:inputText></label><br/>
+        <label>Date to: <h:inputText value="#{newReservations.dateToForSearch}" a:placeholder="yyyy/MM/dd"
+                                     required="true">
+            <f:convertDateTime type="date" pattern="yyyy/MM/dd" timeZone="GMT+3"/>
+        </h:inputText></label><br/>
+        <h:commandButton value="Search for free rooms" action="#{newReservations.searchForFreeRooms}"/>
+    </h:form>
+
+<!--    <h1>#{newReservations.dateFromForSearch} - #{newReservations.dateToForSearch}</h1>-->
+    <c:if test="#{newReservations.freeRooms.size() == 0}">
+        <h3>No free rooms were found for given dates</h3>
+    </c:if>
+    <c:if test="#{newReservations.freeRooms.size() != 0}">
+        <h3>New reservation:</h3>
+        <h:form id="createForm">
+            <h4>Free rooms:</h4>
+            <h:selectOneRadio value="#{newReservations.roomIdToReserve}">
+                <f:selectItems value="#{newReservations.freeRooms}"
+                               var="freeRoom"
+                               itemValue="#{freeRoom.id}"
+                               itemLabel="Size: #{freeRoom.roomType.size}, Type: #{freeRoom.roomType.type}, Night price: #{freeRoom.roomType.nightPrice}Eur, Number: #{freeRoom.number}"/>
+            </h:selectOneRadio>
+            <h4>Client:</h4>
+            <h:selectOneMenu value="#{newReservations.clientIdToReserve}">
+                <f:selectItems value="#{newReservations.allClients}"
+                               var="client"
+                               itemValue="#{client.id}"
+                               itemLabel="#{client.name} #{client.surname}"/>
+            </h:selectOneMenu>
+            <h4>Aditional requests:</h4>
+            <h:selectManyCheckbox value="#{newReservations.selectedAditionalRequestsIds}">
+                <f:selectItems value="#{newReservations.allAditionalRequests}"
+                               var="aditionalRequest"
+                               itemValue="#{aditionalRequest.id}"
+                               itemLabel="#{aditionalRequest.request}"/>
+            </h:selectManyCheckbox>
+
+            <h:commandButton value="Create reservation" action="#{newReservations.createReservation}">
+                <f:param name="dateFrom" value="#{newReservations.dateFromFormatted}"/>
+                <f:param name="dateTo" value="#{newReservations.dateToFormatted}"/>
+            </h:commandButton>
+        </h:form>
+    </c:if>
+</h:body>
+</html>

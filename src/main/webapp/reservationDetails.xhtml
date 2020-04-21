@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:head></h:head>
+<h:body>
+    <nav>
+        <h:link outcome="index.xhtml" value="Reservations"/>
+        <h:link outcome="newReservations.xhtml" value="New reservation"/>
+        <h:link outcome="aditionalRequests.xhtml" value="Aditional requests"/>
+        <h:link outcome="clients.xhtml" value="Clients"/>
+        <h:link outcome="rooms.xhtml" value="Rooms"/>
+        <h:link outcome="roomTypes.xhtml" value="Room types"/>
+    </nav>
+    <h2>Reservation:</h2>
+    <table>
+        <tr>
+            <th>Is checked-in?</th>
+            <th>Date from</th>
+            <th>Date to</th>
+            <th>Room number</th>
+            <th>Client</th>
+        </tr>
+        <tr>
+            <td>#{reservationDetails.reservation.isCheckedIn}</td>
+            <td>#{reservationDetails.reservation.dateFrom}</td>
+            <td>#{reservationDetails.reservation.dateTo}</td>
+            <td><h:link value="#{reservationDetails.reservation.room.number}" outcome="roomDetails?roomId=#{reservationDetails.reservation.room.id}"/></td>
+            <td><h:link value="#{reservationDetails.reservation.client.name} #{reservationDetails.reservation.client.surname}" outcome="clientDetails?clientId=#{reservationDetails.reservation.client.id}"/></td>
+        </tr>
+    </table>
+    <h4>Aditional requests:</h4>
+    <ul>
+        <c:if test="#{reservationDetails.reservation.aditionalRequests.size() == 0}">
+            <li>No aditional requests</li>
+        </c:if>
+        <ui:repeat value="#{reservationDetails.reservation.aditionalRequests}" var="aditionalRequest">
+            <li>#{aditionalRequest.request}</li>
+        </ui:repeat>
+    </ul>
+
+    <h2>Edit reservation:</h2>
+    <c:if test="#{reservationDetails.reservation.isCheckedIn == false}">
+        <h:form>
+            <h:commandButton value="Check in" action="#{reservationDetails.checkIn}">
+                <f:param name="reservationId" value="#{reservationDetails.reservation.id}" />
+            </h:commandButton>
+        </h:form>
+    </c:if>
+    <c:if test="#{reservationDetails.reservation.isCheckedIn == true}">
+        <h3>Client has to pay #{reservationDetails.toPay} Eur</h3>
+        <h:form>
+            <h:commandButton value="Check out" action="#{reservationDetails.checkOut}">
+                <f:param name="reservationId" value="#{reservationDetails.reservation.id}" />
+            </h:commandButton>
+        </h:form>
+    </c:if>
+    <h:link outcome="reservationDetailsMyBatis.xhtml?reservationId=#{reservationDetails.reservation.id}" value="See reservation details in MyBatis"/>
+</h:body>
+</html>

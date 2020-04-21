@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+    <nav>
+        <h:link outcome="index.xhtml" value="Reservations"/>
+        <h:link outcome="newReservations.xhtml" value="New reservation"/>
+        <h:link outcome="aditionalRequests.xhtml" value="Aditional requests"/>
+        <h:link outcome="clients.xhtml" value="Clients"/>
+        <h:link outcome="rooms.xhtml" value="Rooms"/>
+        <h:link outcome="roomTypes.xhtml" value="Room types"/>
+    </nav>
+    <h2>Aditional requests:</h2>
+    <ul>
+        <c:if test="#{aditionalRequests.allAditionalRequests.size() == 0}">
+            <li>No aditional requests</li>
+        </c:if>
+        <ui:repeat value="#{aditionalRequests.allAditionalRequests}" var="aditionalRequest">
+            <li>#{aditionalRequest.request}</li>
+        </ui:repeat>
+    </ul>
+
+    <h2>Add new aditional request:</h2>
+    <h:form>
+        <h:inputText value="#{aditionalRequests.aditionalRequestToCreate.request}" required="true" a:placeholder="Request" />
+        <h:commandButton value="Add new aditional request" action="#{aditionalRequests.createAditionalRequest}" />
+    </h:form>
+</h:body>
+</html>

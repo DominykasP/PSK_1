@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+    <nav>
+        <h:link outcome="index.xhtml" value="Reservations"/>
+        <h:link outcome="newReservations.xhtml" value="New reservation"/>
+        <h:link outcome="aditionalRequests.xhtml" value="Aditional requests"/>
+        <h:link outcome="clients.xhtml" value="Clients"/>
+        <h:link outcome="rooms.xhtml" value="Rooms"/>
+        <h:link outcome="roomTypes.xhtml" value="Room types"/>
+    </nav>
+    <h2>Clients:</h2>
+    <ul>
+        <c:if test="#{clients.allClients.size() == 0}">
+            <li>No clients</li>
+        </c:if>
+        <ui:repeat value="#{clients.allClients}" var="client">
+            <li><h:link value="#{client.name} #{client.surname}" outcome="clientDetails?clientId=#{client.id}"/></li>
+        </ui:repeat>
+    </ul>
+
+    <h2>Add new client:</h2>
+    <h:form>
+        <h:inputText value="#{clients.clientToCreate.name}" required="true" a:placeholder="Name" />
+        <h:inputText value="#{clients.clientToCreate.surname}" required="true" a:placeholder="Surname" />
+        <h:inputText value="#{clients.clientToCreate.phoneNr}" required="true" a:placeholder="PhoneNr" />
+        <h:inputText value="#{clients.clientToCreate.email}" required="true" a:placeholder="Email" />
+        <h:commandButton value="Add new client" action="#{clients.createClient}" />
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+    <nav>
+        <h:link outcome="index.xhtml" value="Reservations"/>
+        <h:link outcome="newReservations.xhtml" value="New reservation"/>
+        <h:link outcome="aditionalRequests.xhtml" value="Aditional requests"/>
+        <h:link outcome="clients.xhtml" value="Clients"/>
+        <h:link outcome="rooms.xhtml" value="Rooms"/>
+        <h:link outcome="roomTypes.xhtml" value="Room types"/>
+    </nav>
+    <h2>Room types:</h2>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Night price</th>
+        </tr>
+        <c:if test="#{roomTypes.allRoomTypes.size() == 0}">
+            <tr>
+                <td colspan="3">No room types</td>
+            </tr>
+        </c:if>
+        <ui:repeat value="#{roomTypes.allRoomTypes}" var="roomType">
+            <tr>
+                <td>#{roomType.type}</td>
+                <td>#{roomType.size}</td>
+                <td>#{roomType.nightPrice}</td>
+            </tr>
+        </ui:repeat>
+    </table>
+
+    <h2>Add new room type:</h2>
+    <h:form>
+        <h:inputText value="#{roomTypes.roomTypeToCreate.type}" required="true" a:placeholder="Type" />
+        <h:inputText value="#{roomTypes.roomTypeToCreate.size}" required="true" a:placeholder="Size" />
+        <h:inputText value="#{roomTypes.roomTypeToCreate.nightPrice}" required="true" a:placeholder="Night price" />
+        <h:commandButton value="Add new room type" action="#{roomTypes.createRoomType}" />
+    </h:form>
+</h:body>
+</html>
