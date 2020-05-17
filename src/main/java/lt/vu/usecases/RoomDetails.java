@@ -13,11 +13,12 @@ import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 @Model
-public class RoomDetails {
+public class RoomDetails implements Serializable {
     @Inject
     private RoomsDAO roomsDAO;
     @Inject

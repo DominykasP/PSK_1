@@ -35,6 +35,14 @@
         </tr>
     </table>
 
+    <h2>Clean this room:</h2>
+    <p>#{cleanRoom.getCleaningStatus(roomDetails.room.id)}</p>
+    <h:form>
+        <h:commandButton value="Clean this room" action="#{cleanRoom.cleanRoom}">
+            <f:param name="roomId" value="#{roomDetails.room.id}" />
+        </h:commandButton>
+    </h:form>
+
     <h2>Reservations for this room:</h2>
     <table>
         <tr>
