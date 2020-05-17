@@ -41,4 +41,8 @@ public class Reservation implements Serializable {
     @ManyToMany()
     @JoinTable(name = "RESERVATION_ADITIONAL_REQUEST")
     private List<AditionalRequest> aditionalRequests = new ArrayList<>();
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
 }

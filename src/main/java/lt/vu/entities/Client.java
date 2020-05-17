@@ -32,4 +32,8 @@ public class Client implements Serializable {
 
     @OneToMany(mappedBy = "client")
     private List<Reservation> reservations = new ArrayList<>();
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
 }

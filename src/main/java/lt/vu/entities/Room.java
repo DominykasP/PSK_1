@@ -28,4 +28,8 @@ public class Room implements Serializable {
 
     @OneToMany(mappedBy = "room")
     private List<Reservation> reservations = new ArrayList<>();
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
 }

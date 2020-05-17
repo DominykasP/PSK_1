@@ -21,6 +21,7 @@ public class AditionalRequest implements Serializable {
     @Column(name = "REQUEST")
     private String request;
 
-//    @ManyToMany(mappedBy = "aditionalRequests")
-//    private List<Reservation> reservations = new ArrayList<>();
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
 }
