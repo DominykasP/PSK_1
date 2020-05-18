@@ -8,5 +8,12 @@
 
     <interceptors>
         <class>lt.vu.interceptors.MethodLogger</class>
+        <class>lt.vu.interceptors.DateCheckHandler</class>
     </interceptors>
+    <decorators>
+        <class>lt.vu.decorators.BedSheetsCleaningDecorator</class>
+    </decorators>
+<!--    <alternatives>-->
+<!--        <class>lt.vu.usecases.RoomCleanings.SlowRoomCleaning</class>-->
+<!--    </alternatives>-->
 </beans>

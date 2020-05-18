@@ -1,6 +1,7 @@
 package lt.vu.usecases;
 
 import lt.vu.interceptors.LoggedInvocation;
+import lt.vu.usecases.RoomCleanings.RoomCleaning;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;

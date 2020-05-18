@@ -6,15 +6,13 @@ import lt.vu.entities.Reservation;
 import lt.vu.entities.RoomType;
 import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.ReservationsDAO;
+import lt.vu.usecases.PriceCalculations.PriceCalculator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Map;
@@ -23,6 +21,9 @@ import java.util.Map;
 public class ReservationDetails {
     @Inject
     private ReservationsDAO reservationsDAO;
+
+    @Inject
+    private PriceCalculator priceCalculator;
 
     @Getter @Setter
     private Reservation reservation;
@@ -58,9 +59,8 @@ public class ReservationDetails {
     private Long calculateTotalPrice() {
         LocalDateTime dateFrom = reservation.getDateFrom().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime dateTo = reservation.getDateTo().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        long daysBetween = Duration.between(dateFrom, dateTo).toDays();
-
         RoomType roomType = reservation.getRoom().getRoomType();
-        return roomType.getNightPrice() * daysBetween;
+
+        return priceCalculator.calculateTotalPrice(dateFrom, dateTo, roomType.getNightPrice());
     }
 }

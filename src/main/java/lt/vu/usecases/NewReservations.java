@@ -6,6 +6,8 @@ import lt.vu.entities.AditionalRequest;
 import lt.vu.entities.Client;
 import lt.vu.entities.Reservation;
 import lt.vu.entities.Room;
+import lt.vu.exceptions.DateException;
+import lt.vu.interceptors.CheckedForDateException;
 import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.AditionalRequestsDAO;
 import lt.vu.persistence.ClientsDAO;
@@ -85,7 +87,10 @@ public class NewReservations implements Serializable {
 
     @Transactional
     @LoggedInvocation
-    public String createReservation() {
+    @CheckedForDateException
+    public String createReservation() throws DateException {
+        checkDate();
+
         Reservation reservation = new Reservation();
         reservation.setDateFrom(dateFromForSearch);
         reservation.setDateTo(dateToForSearch);
@@ -105,5 +110,11 @@ public class NewReservations implements Serializable {
         reservation.setIsCheckedIn(false);
         reservationsDAO.persist(reservation);
         return "reservationDetails?faces-redirect=true&reservationId=" + reservation.getId();
+    }
+
+    @CheckedForDateException
+    private void checkDate() throws DateException {
+        if (dateFromForSearch.compareTo(dateToForSearch) > 0) //dateFromForSearch is after dateToForSearch
+            throw new DateException("Reservation start is before end");
     }
 }
